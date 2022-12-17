@@ -1,69 +1,48 @@
 #include "sort.h"
-#include <stddef.h>
 /**
- *insertion_sort_list-function to sort a doubly linked list
- *@list: pointer to doubly linked list struct
- *
+ * insertion_sort_list - sort doubly linked list
+ * @list: pointer to list
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = NULL, *temp = NULL;
+	listint_t *Node = NULL, *tmp = NULL, *head = NULL;
+	int listlen = 0;
 
 	if (list == NULL || (*list) == NULL)
 		return;
-	if (dlistint_len(*list) < 2)
-		return;
 
-	current = (*list);//pointer to first element
-
-	while (current)//loop that iterates through the list from the first element
-	{
-		while (current->next && current->n > current->next->n)
-		{
-			//On each iteration it checks if the current element is larger than the next
-			//element in the list. If it is, the function swaps the positions of the two elements.
-			//The function tge updates the prev pointer of current and the next pointer to temp to point
-			//to each other.
-			temp = current->next;
-			current->next = temp->next;
-			temp->prev = current->prev;
-
-			if (current->prev != NULL)
-				current->prev->next = temp;
-
-			if (temp->next != NULL)
-				temp->next->prev = current;
-
-			current->prev = temp;
-			temp->next = current;
-
-			//if the prev pointer is NULL, this means that temp has moved to the front of the list,
-			//so the function updates the list pointer to point to temp.
-			//The function then moves current to the next element in the list, and the loop continues.
-			if (temp->prev != NULL)
-				current = temp->prev;
-			else
-			{
-				*list = temp;
-			}
-			print_list(*list);
-		}
-		current = current->next;
-	}
-}
-/**
- *dlistint_len-function to get the length of doubly linked list
- *@head: first node
- *Return: length of list
- */
-int dlistint_len(listint_t *head)
-{
-	int len_count = 0;
-
+	Node = (*list);
 	while (head != NULL)
 	{
-		head = head->next;
-		len_count++;
+		tmp = tmp->next;
+		listlen++;
 	}
-	return (len_count);
+	if (listlen < 2)
+		return;
+
+	while (Node)
+	{
+		while (Node->next && Node->n > Node->next->n)
+		{
+			tmp = Node->next;
+			Node->next = tmp->next;
+			tmp->prev = Node->prev;
+
+			if (Node->prev != NULL)
+				Node->prev->next = tmp;
+			if (tmp->next != NULL)
+				tmp->next->prev = Node;
+
+			Node->prev = tmp;
+			temp->next = Node;
+
+			if (tmp->prev != NULL)
+				Node = tmp->prev;
+			else
+				*list = tmp;
+
+			print_list(*list);
+		}
+		Node = Node->next;
+	}
 }
