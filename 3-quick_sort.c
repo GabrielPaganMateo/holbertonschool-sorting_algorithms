@@ -1,8 +1,4 @@
 #include "sort.h"
-void quicksort_recursion(int *array, int low, int high, size_t size);
-void swap(int *x, int *y);
-int partition(int *array, int low, int high, size_t size);
-void quick_sort(int *array, size_t size);
 /**
  *quick_sort-function too sort an array in ascending order
  *@array: pointer to array
@@ -28,18 +24,21 @@ void quick_sort(int *array, size_t size)
  */
 int partition(int *array, int low, int high, size_t size)
 {
-	int pivot = array[high];
+	int pivot = array[high]; //last element as pivot
 	int j;
-	int i = low - 1;
+	int i = low - 1; //index of smaller element and indicates
+					 //the right position of pivot
 
 	for (j = low; j <= high - 1; j++)
 	{
+		// If current element is smaller than the pivot
 		if (array[j] < pivot)
 		{
-			i++;
-			swap(&array[i], &array[j]);
+			i++; //increment index(temporary pivot) of smaller element
+			swap(&array[i], &array[j]); //swap the current element with the element
+										//at the temporary pivot
 			if (i != j)
-				print_array(array, size);
+				print_array(array, size); //only prints as long there is a swap
 		}
 	}
 	swap(&array[i + 1], &array[high]);
