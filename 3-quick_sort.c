@@ -19,32 +19,29 @@ void quick_sort(int *array, size_t size)
  *@array: pointer to array
  *@low: lowest index
  *@high: highest index
- *@size: size of array
+ *@size: array size
  *Return: index
  */
 int partition(int *array, int low, int high, size_t size)
 {
-	int pivot = array[high]; //last element as pivot
+	int pivot = array[high];
 	int j;
-	int i = low - 1; //index of smaller element and indicates
-					 //the right position of pivot
+	int i = low - 1;
 
 	for (j = low; j <= high - 1; j++)
 	{
-		// If current element is smaller than the pivot
 		if (array[j] < pivot)
 		{
-			i++; //increment index(temporary pivot) of smaller element
-			swap(&array[i], &array[j]); //swap the current element with the element
-										//at the temporary pivot
+			i++;
+			swap(&array[i], &array[j]);
 			if (i != j)
-				print_array(array, size); //only prints as long there is a swap
+				print_array(array, size);
 		}
 	}
 	swap(&array[i + 1], &array[high]);
 	if (array[high] != pivot)
-		print_array(array, size); //only prints if the pivot is the last element
-	return (i + 1); //return the pivot index
+		print_array(array, size);
+	return (i + 1);
 }
 /**
  *swap-function to swap values
@@ -64,17 +61,15 @@ void swap(int *x, int *y)
  *@array: pointer to array
  *@low: lowest index
  *@high: highest index
- *@size: size of array
+ *@size: array size
  */
 void quicksort_recursion(int *array, int low, int high, size_t size)
 {
 	if (low < high)
 	{
-		//pivot is partitioning index, array[pivot] is now at right place
 		int pivot_index = partition(array, low, high, size);
 
-		//separately sort elements before and after partitioning
-		quicksort_recursion(array, low, pivot_index - 1, size); //left side of pivot
-		quicksort_recursion(array, pivot_index + 1, high, size); //right side of pivot
+		quicksort_recursion(array, low, pivot_index - 1, size);
+		quicksort_recursion(array, pivot_index + 1, high, size);
 	}
 }
